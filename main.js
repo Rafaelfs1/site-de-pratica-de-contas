@@ -3,6 +3,8 @@ let currentNumber1 = 0;
 let currentNumber2 = 0;
 let currentList = [];
 let missingNumber = 0;
+let currentModeOrder = "";
+let score = 0;
 
 // Começar Par/Ímpar
 function startEvenOdd() {
@@ -43,9 +45,9 @@ function startOrder() {
 function startSequence() {
     currentMode = "sequence";
     let start = Math.floor(Math.random() * 50);
-    let step = Math.floor(Math.random() * 5) + 1; // passo de 1 a 5
-    currentList = [start, start + step, start + 2*step];
-    missingNumber = start + 3*step;
+    let step = Math.floor(Math.random() * 5) + 1;
+    currentList = [start, start + step, start + 2 * step];
+    missingNumber = start + 3 * step;
     document.getElementById('question').textContent = `Complete a sequência: ${currentList.join(", ")}, ___`;
     prepareInput();
 }
@@ -56,6 +58,23 @@ function prepareInput() {
     document.getElementById('feedback').textContent = "";
     document.getElementById('answer').disabled = false;
     document.getElementById('checkBtn').disabled = false;
+}
+
+// Atualizar placar
+function updateScore() {
+    document.getElementById('score').textContent = `🏅 Acertos: ${score}`;
+}
+
+// Frases aleatórias de incentivo
+function getRandomSuccessMessage() {
+    const messages = [
+        "Muito bem! 🎉",
+        "Você é incrível! 🚀",
+        "Continue assim! 🌈",
+        "Show de bola! ⚡",
+        "Mandou bem! 🏆"
+    ];
+    return messages[Math.floor(Math.random() * messages.length)];
 }
 
 // Verificar resposta
@@ -91,10 +110,12 @@ document.getElementById('checkBtn').addEventListener('click', function() {
     }
 
     if (correct) {
-        document.getElementById('feedback').textContent = "✅ Resposta Correta!";
+        score++;
+        updateScore();
+        document.getElementById('feedback').textContent = getRandomSuccessMessage();
         document.getElementById('feedback').className = "correct";
     } else {
-        document.getElementById('feedback').textContent = "❌ Tente novamente!";
+        document.getElementById('feedback').textContent = "❌ Ops! Tente outra vez!";
         document.getElementById('feedback').className = "incorrect";
     }
 });
