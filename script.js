@@ -5,67 +5,78 @@ let currentList = [];
 let missingNumber = 0;
 let currentModeOrder = "";
 let score = 0;
+let phase = 1;
 
-// Começar Par/Ímpar
+// Sons
+const successSound = document.getElementById("successSound");
+const errorSound = document.getElementById("errorSound");
+
+// Começar modos
 function startEvenOdd() {
-    currentMode = "evenOdd";
-    currentNumber1 = Math.floor(Math.random() * 100);
-    document.getElementById('question').textContent = `O número ${currentNumber1} é Par ou Ímpar? (Digite "par" ou "ímpar")`;
-    prepareInput();
+    setupGame("evenOdd");
 }
-
-// Começar Multiplicação
 function startMultiplication() {
-    currentMode = "multiplication";
-    currentNumber1 = Math.floor(Math.random() * 10);
-    currentNumber2 = Math.floor(Math.random() * 10);
-    document.getElementById('question').textContent = `Quanto é ${currentNumber1} x ${currentNumber2}?`;
-    prepareInput();
+    setupGame("multiplication");
 }
-
-// Começar Dezena e Unidade
 function startTensUnits() {
-    currentMode = "tensUnits";
-    currentNumber1 = Math.floor(Math.random() * 100);
-    document.getElementById('question').textContent = `Quantas dezenas e unidades tem ${currentNumber1}? (Ex: "4 dezenas e 5 unidades")`;
-    prepareInput();
+    setupGame("tensUnits");
 }
-
-// Começar Ordem Crescente/Decrescente
 function startOrder() {
-    currentMode = "order";
-    currentList = Array.from({length: 3}, () => Math.floor(Math.random() * 100));
-    const modeOrder = Math.random() < 0.5 ? "crescente" : "decrescente";
-    currentModeOrder = modeOrder;
-    document.getElementById('question').textContent = `Organize em ordem ${modeOrder}: ${currentList.join(", ")}`;
-    prepareInput();
+    setupGame("order");
 }
-
-// Começar Complete a Sequência
 function startSequence() {
-    currentMode = "sequence";
-    let start = Math.floor(Math.random() * 50);
-    let step = Math.floor(Math.random() * 5) + 1;
-    currentList = [start, start + step, start + 2 * step];
-    missingNumber = start + 3 * step;
-    document.getElementById('question').textContent = `Complete a sequência: ${currentList.join(", ")}, ___`;
-    prepareInput();
+    setupGame("sequence");
 }
 
-// Prepara input
-function prepareInput() {
-    document.getElementById('answer').value = "";
-    document.getElementById('feedback').textContent = "";
+// Inicia o jogo
+function setupGame(mode) {
+    currentMode = mode;
     document.getElementById('answer').disabled = false;
     document.getElementById('checkBtn').disabled = false;
+    document.getElementById('finishBtn').disabled = false;
+    document.getElementById('feedback').textContent = "";
+    nextQuestion();
 }
 
-// Atualizar placar
+// Nova pergunta
+function nextQuestion() {
+    document.getElementById('answer').value = "";
+
+    if (currentMode === "evenOdd") {
+        currentNumber1 = Math.floor(Math.random() * 100);
+        document.getElementById('question').textContent = `O número ${currentNumber1} é Par ou Ímpar? (Digite "par" ou "ímpar")`;
+
+    } else if (currentMode === "multiplication") {
+        currentNumber1 = Math.floor(Math.random() * 10);
+        currentNumber2 = Math.floor(Math.random() * 10);
+        document.getElementById('question').textContent = `Quanto é ${currentNumber1} x ${currentNumber2}?`;
+
+    } else if (currentMode === "tensUnits") {
+        currentNumber1 = Math.floor(Math.random() * 100);
+        document.getElementById('question').textContent = `Quantas dezenas e unidades tem ${currentNumber1}? (Ex: "4 dezenas e 5 unidades")`;
+
+    } else if (currentMode === "order") {
+        currentList = Array.from({length: 3}, () => Math.floor(Math.random() * 100));
+        const modeOrder = Math.random() < 0.5 ? "crescente" : "decrescente";
+        currentModeOrder = modeOrder;
+        document.getElementById('question').textContent = `Organize em ordem ${modeOrder}: ${currentList.join(", ")}`;
+
+    } else if (currentMode === "sequence") {
+        let start = Math.floor(Math.random() * 50);
+        let step = Math.floor(Math.random() * 5) + 1;
+        currentList = [start, start + step, start + 2 * step];
+        missingNumber = start + 3 * step;
+        document.getElementById('question').textContent = `Complete a sequência: ${currentList.join(", ")}, ___`;
+    }
+}
+
+// Atualiza placar e fase
 function updateScore() {
-    document.getElementById('score').textContent = `🏅 Acertos: ${score}`;
+    phase = Math.floor(score / 5) + 1;
+    document.getElementById('score').textContent = `🏅 Acertos: ${score} | 🏆 Fase: ${phase}`;
 }
 
-// Frases aleatórias de incentivo
+// Mensagens
 function getRandomSuccessMessage() {
     const messages = [
         "Muito bem! 🎉",
@@ -114,8 +125,25 @@ document.getElementById('checkBtn').addEventListener('click', function() {
         updateScore();
         document.getElementById('feedback').textContent = getRandomSuccessMessage();
         document.getElementById('feedback').className = "correct";
+        document.getElementById('emoji').textContent = "🥳";
+        successSound.play();
+        setTimeout(() => {
+            document.getElementById('emoji').textContent = "😃";
+            nextQuestion();
+        }, 1000);
     } else {
         document.getElementById('feedback').textContent = "❌ Ops! Tente outra vez!";
         document.getElementById('feedback').className = "incorrect";
+        document.getElementById('emoji').textContent = "😢";
+        errorSound.play();
+        setTimeout(() => {
+            document.getElementById('emoji').textContent = "😃";
+        }, 1000);
     }
+});
+
+// Botão Finalizar
+document.getElementById('finishBtn').addEventListener('click', function() {
+    alert(`🎯 Você acertou ${score} perguntas!\n🏆 Fase alcançada: ${phase}`);
+    location.reload();
 });

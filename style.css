@@ -1,16 +1,17 @@
 :root {
-    --primary-color: #0edb97;
-    --secondary-color: #dffed6;
-    --tertiary-color: #02be2b;
-    --quaternary-color: #ff1493;
-    --font-color: #4caf50;
-    --background-color: #ffffffaa;
-    --shadow-color: #888;
+    --text-color: #085e41;
+    --primary-color: #93fdb6;
+    --secondary-color: #e0ff98;
+    --botton-secondary-color: #2fca09;
     --error-color: #f44336;
+    --success-color: #4caf50;
+    --white: #ffffff;
+    --black: #000000;
+    --gray: #e4e4e488;
 }
 
 body {
-    font-family: 'Comic Sans MS', cursive, sans-serif;
+    font-family: 'nunito', sans-serif, 'poppins', sans-serif;
     background: linear-gradient(to right, var(--primary-color), var(--secondary-color));
     text-align: center;
     margin: 0;
@@ -20,21 +21,26 @@ body {
 .container {
     max-width: 600px;
     margin: auto;
-    background: var(--background-color);
+    background: var(--white);
     padding: 20px;
     border-radius: 20px;
-    box-shadow: 0 0 10px var(--shadow-color);
+    box-shadow: 0 0 10px var(--gray);
 }
 
 h1 {
-    color: var(--primary-color);
+    color: var(--text-color);
     margin-bottom: 10px;
 }
 
 #score {
     font-size: 24px;
+    margin-bottom: 10px;
+    color: var(--success-color);
+}
+
+#emoji {
+    font-size: 48px;
     margin-bottom: 20px;
-    color: var(--font-color);
 }
 
 .game h2 {
@@ -47,7 +53,7 @@ input[type="text"] {
     width: 80%;
     font-size: 18px;
     border-radius: 10px;
-    border: 2px solid var(--tertiary-color);
+    border: 2px solid var(--gray);
     margin-bottom: 10px;
 }
 
@@ -56,15 +62,26 @@ button {
     font-size: 18px;
     border-radius: 10px;
     border: none;
-    background-color: var(--tertiary-color);
-    color: white;
+    background-color: var(--botton-secondary-color);
+    color: var(--white);
     margin: 5px;
     cursor: pointer;
     transition: background 0.3s;
 }
 
 button:hover {
-    background-color: var(--quaternary-color);
+    background-color: var(--secondary-color);
+    color: var(--text-color);
+}
+
+.buttons{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    border-radius: 10px;
+    padding: 10px;
+    background: var(--gray);
 }
 
 #feedback {
@@ -73,7 +90,7 @@ button:hover {
 }
 
 .correct {
-    color: var(--font-color);
+    color: var(--success-color);
 }
 
 .incorrect {

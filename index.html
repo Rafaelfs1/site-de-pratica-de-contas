@@ -1,35 +1,47 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Treino de Matemática!</title>
-    <link rel="stylesheet" href="style.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Treino de Matemática!</title>
+  <link rel="stylesheet" href="style.css">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Chewy&family=Montserrat:ital,wght@0,100..900;1,100..900&family=Nunito:ital,wght@0,200..1000;1,200..1000&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Sansita+Swashed:wght@300..900&display=swap" rel="stylesheet">
 </head>
 <body>
-    <div class="container">
-        <h1>🌟 Treino de Matemática 🌟</h1>
+  <div class="container">
+    <h1>🌟 Treino de Matemática 🌟</h1>
 
-        <div id="score">🏅 Acertos: 0</div>
+    <div id="score">🏅 Acertos: 0 | 🏆 Fase: 1</div>
+    <div id="emoji">😃</div>
 
-        <div class="game">
-            <h2 id="question">Clique em um modo para começar!</h2>
-            
-            <input type="text" id="answer" placeholder="Digite sua resposta" disabled>
-            <button id="checkBtn" disabled>Verificar</button>
-            
-            <p id="feedback"></p>
-        </div>
-
-        <div class="buttons">
-            <button onclick="startEvenOdd()">Par/Ímpar</button>
-            <button onclick="startMultiplication()">Multiplicação</button>
-            <button onclick="startTensUnits()">Dezena e Unidade</button>
-            <button onclick="startOrder()">Crescente/Decrescente</button>
-            <button onclick="startSequence()">Complete a Sequência</button>
-        </div>
+    <div class="game">
+      <h2 id="question">Escolha um modo para começar!</h2>
+      
+      <input type="text" id="answer" placeholder="Digite sua resposta" disabled>
+      <button id="checkBtn" disabled>Verificar</button>
+      <button id="finishBtn" disabled>Finalizar</button>
+      
+      <p id="feedback"></p>
     </div>
 
-    <script src="script.js"></script>
+    <div class="buttons">
+      <button onclick="startEvenOdd()">Par/Ímpar</button>
+      <button onclick="startMultiplication()">Multiplicação</button>
+      <button onclick="startTensUnits()">Dezena e Unidade</button>
+      <button onclick="startOrder()">Crescente/Decrescente</button>
+      <button onclick="startSequence()">Complete a Sequência</button>
+    </div>
+  </div>
+
+  <!-- Sons -->
+  <audio id="successSound" src="https://cdn.pixabay.com/audio/2022/03/15/audio_5b6ca57d3f.mp3"></audio>
+  <audio id="errorSound" src="https://cdn.pixabay.com/audio/2022/03/15/audio_8b58dba118.mp3"></audio>
+
+  <script src="script.js"></script>
 </body>
 </html>
