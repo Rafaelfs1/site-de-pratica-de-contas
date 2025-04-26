@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Treino de Matemática!</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <h1>🌟 Treino de Matemática 🌟</h1>
+        
+        <div class="game">
+            <h2 id="question">Clique em um modo para começar!</h2>
+            
+            <input type="text" id="answer" placeholder="Digite sua resposta" disabled>
+            <button id="checkBtn" disabled>Verificar</button>
+            
+            <p id="feedback"></p>
+        </div>
+
+        <div class="buttons">
+            <button onclick="startEvenOdd()">Par/Ímpar</button>
+            <button onclick="startMultiplication()">Multiplicação</button>
+            <button onclick="startTensUnits()">Dezena e Unidade</button>
+            <button onclick="startOrder()">Crescente/Decrescente</button>
+            <button onclick="startSequence()">Complete a Sequência</button>
+        </div>
+    </div>
+
+    <script src="main.js"></script>
+</body>
+</html>
